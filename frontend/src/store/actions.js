@@ -40,3 +40,14 @@ export async function increaseItemInCart (context, { item, quantity }) {
     console.log(error)
   }
 }
+
+export async function decreaseItemInCart (context, item) {
+  try {
+    debugger
+    const { data } = await axios.delete(`${baseServerUrl}shoppingcart`, { item })
+
+    context.commit('updateItem', data)
+  } catch (error) {
+    console.log(error)
+  }
+}
