@@ -1,13 +1,15 @@
 <template>
   <div class="home">
     <FilterAside />
-    <ul class="item-list">
-      <ItemListDetail
-        v-for="item in itemList"
-        :key="item"
-        :item="item"
-      />
-    </ul>
+    <div class="list-container">
+      <ul class="item-list">
+        <ItemListDetail
+          v-for="item in itemList"
+          :key="item"
+          :item="item"
+        />
+      </ul>
+    </div>
   </div>
 </template>
 
@@ -60,10 +62,17 @@ export default {
   display: flex;
 }
 
+.list-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex: 7;
+  margin: 0 auto;
+}
+
 .item-list {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  flex: 7;
 }
 </style>
