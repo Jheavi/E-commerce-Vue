@@ -1,14 +1,14 @@
 export function setItemList (state, items) {
   state.itemList = items
   state.productTypes = items.reduce(
-    (acc, cur) => !acc.includes(cur['product-type'])
-      ? [...acc, cur['product-type']]
+    (acc, currentItem) => !acc.includes(currentItem['product-type'])
+      ? [...acc, currentItem['product-type']]
       : acc,
     []
   )
   state.productManufacturers = items.reduce(
-    (acc, cur) => !acc.includes(cur.manufacturer)
-      ? [...acc, cur.manufacturer]
+    (acc, currentItem) => !acc.includes(currentItem.manufacturer)
+      ? [...acc, currentItem.manufacturer]
       : acc,
     []
   )
@@ -22,6 +22,25 @@ export function setCheckedProductManufacturers (state, checkedManufacturers) {
   state.checkedProductManufacturers = checkedManufacturers
 }
 
-export function getItem (state, itemId) {
-  state.item = state.itemList.find((item) => item.id === itemId)
+export function setCart (state, cartList) {
+  state.cartList = cartList
+}
+
+export function setCartSize (state, cartList) {
+  state.cartSize = cartList.reduce((acc, current) => acc + current.quantity, 0)
+  console.log(state.cartSize)
+}
+
+export function setItem (state, item) {
+  state.item = item
+}
+
+export function updateItem (state, cartItem) {
+  const index = state.cartList.findIndex((item) => item._id === cartItem._id)
+
+  if (index !== -1) {
+    state.cartList = state.cartList.splice(index, 1, cartItem)
+  } else {
+    state.cartList = [...state.cartList, cartItem]
+  }
 }
