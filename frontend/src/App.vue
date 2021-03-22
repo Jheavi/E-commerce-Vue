@@ -1,10 +1,5 @@
 <template>
-  <app-header />
-  <div id="nav">
-    <router-link to="/">
-      Home
-    </router-link>
-  </div>
+  <AppHeader />
   <router-view />
 </template>
 
@@ -19,24 +14,39 @@ export default {
 </script>
 
 <style lang="scss">
-#app {
+* {
   font-family: Avenir, Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+#app {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
 }
 
-#nav {
-  padding: 30px;
+li {
+  list-style-type: none;
+}
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
+.flex1 {
+  flex: 1;
+}
 
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+.flex2 {
+  flex: 2;
+}
+
+.flex3 {
+  flex: 3;
+}
+
+.flex10 {
+  flex: 10;
 }
 </style>
