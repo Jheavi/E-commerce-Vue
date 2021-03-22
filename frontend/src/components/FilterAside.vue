@@ -32,12 +32,14 @@
         <label :for="manufacturer">{{ manufacturer }}</label>
       </div>
     </ul>
-    <button
-      class="clear-filter"
-      @click="clearFilter"
-    >
-      Clear filter
-    </button>
+    <div class="btn-container">
+      <button
+        class="clear-filter-btn"
+        @click="clearFilter"
+      >
+        Clear filter
+      </button>
+    </div>
   </aside>
 </template>
 
@@ -101,23 +103,21 @@ ul {
   padding: 0;
 }
 
-.clear-filter {
-  color: white;
-  background-color: #416bf3;
-  border: none;
-  height: 30px;
-  padding: 3px 20px;
-  border-radius: 30px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.3s;
+h4 {
+  margin: 25px 0 15px;
+}
 
-  &:hover {
-    background-color: #4345fb;
-  }
+input {
+margin-right: 10px;
+}
 
-  &:focus {
-    outline: none;
-  }
+.btn-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.clear-filter-btn {
+  margin-top: 35px;
 }
 </style>
