@@ -4,9 +4,7 @@ function shoppingCarController() {
   async function getMethod(req, res) {
     try {
       const query = { };
-      const cartList = await cartItemSchema.find(query);
-
-      await cartList.populate('product').execPopulate();
+      const cartList = await cartItemSchema.find(query).populate('product');
 
       res.send(cartList);
     } catch (error) {
