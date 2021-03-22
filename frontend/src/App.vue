@@ -16,6 +16,8 @@ export default {
 <style lang="scss">
 * {
   font-family: Avenir, Helvetica, Arial, sans-serif;
+  margin: 0;
+  padding: 0;
 }
 
 a {
@@ -48,5 +50,25 @@ li {
 
 .flex10 {
   flex: 10;
+}
+
+button {
+  color: white;
+  background-color: #416bf3;
+  border: none;
+  height: 30px;
+  padding: 3px 20px;
+  border-radius: 30px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: #4345fb;
+  }
+
+  &:focus {
+    outline: none;
+  }
 }
 </style>
