@@ -8,7 +8,9 @@ const state = {
   productTypes: [],
   checkedProductTypes: [],
   productManufacturers: [],
-  checkedProductManufacturers: []
+  checkedProductManufacturers: [],
+  cartList: [],
+  cartSize: 0
 }
 
 export default createStore({
