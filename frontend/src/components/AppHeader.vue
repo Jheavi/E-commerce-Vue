@@ -13,10 +13,12 @@
       <li>RAM memories</li>
     </ul>
     <div class="flex10" />
-    <button class="cart-btn">
-      <i class="el-icon-goods" />
-      <span class="cart-size">{{ cartSize }}</span>
-    </button>
+    <router-link to="/cart">
+      <button class="cart-btn">
+        <i class="el-icon-goods" />
+        <span class="cart-size">{{ cartSize }}</span>
+      </button>
+    </router-link>
     <div class="flex1" />
     <span>User</span>
     <div class="flex2" />
