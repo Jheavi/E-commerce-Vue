@@ -16,8 +16,8 @@
 <script>
 import { computed, onMounted } from 'vue'
 import { useStore } from 'vuex'
-import ItemListDetail from '../components/ItemListDetail.vue'
-import FilterAside from '../components/FilterAside.vue'
+import ItemListDetail from '@/components/ItemListDetail.vue'
+import FilterAside from '@/components/FilterAside.vue'
 
 export default {
   name: 'Home',
