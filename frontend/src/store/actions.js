@@ -32,11 +32,8 @@ export async function getCart (context) {
 }
 
 export async function increaseItemInCart (context, { item, quantity }) {
-  console.log('item', item)
-  console.log('quantity', quantity)
   try {
     const { data } = await axios.patch(`${baseServerUrl}shoppingcart`, { item, quantity })
-    console.log(data)
 
     context.commit('updateItem', data)
   } catch (error) {
