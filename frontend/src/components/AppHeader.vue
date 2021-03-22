@@ -14,7 +14,8 @@
     </ul>
     <div class="flex10" />
     <button class="cart-btn">
-      Carro
+      <i class="el-icon-goods" />
+      <span class="cart-size">{{ cartSize }}</span>
     </button>
     <div class="flex1" />
     <span>User</span>
@@ -23,15 +24,20 @@
 </template>
 
 <script>
-import { onMounted } from 'vue'
+import { computed, onMounted } from 'vue'
 import { useStore } from 'vuex'
 
 export default {
   setup () {
     const store = useStore()
+    const cartSize = computed(() => store.state.cartSize)
     const getCart = () => store.dispatch('getCart')
 
     onMounted(() => getCart())
+
+    return {
+      cartSize
+    }
   }
 }
 </script>
@@ -56,7 +62,28 @@ li {
 }
 
 .cart-btn {
-  margin: 0;
+  height: 45px;
+  border-radius: 5px;
+  font-weight: bold;
+  background-color: #000000;
+  font-size: 35px;
+  position: relative;
+}
+
+.cart-size {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  right: 15px;
+  bottom: 0;
+  font-size: 11px;
+  color: #000000;
+  background-color: #ffffff;
+  border-radius: 15px;
+
 }
 
 </style>
