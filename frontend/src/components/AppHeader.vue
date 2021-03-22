@@ -13,7 +13,9 @@
       <li>RAM memories</li>
     </ul>
     <div class="flex10" />
-    <button>Carro</button>
+    <button class="cart-btn">
+      Carro
+    </button>
     <div class="flex1" />
     <span>User</span>
     <div class="flex2" />
@@ -21,9 +23,15 @@
 </template>
 
 <script>
+import { onMounted } from 'vue'
+import { useStore } from 'vuex'
+
 export default {
   setup () {
+    const store = useStore()
+    const getCart = () => store.dispatch('getCart')
 
+    onMounted(() => getCart())
   }
 }
 </script>
@@ -31,11 +39,12 @@ export default {
 <style lang="scss" scoped>
 header {
   width: 100%;
-  height: 70%;
+  height: 70px;
   background-color: #000000;
   color: #ffffff;
   display: flex;
   align-items: center;
+  margin-bottom: 30px;
 }
 
 ul {
@@ -44,6 +53,10 @@ ul {
 
 li {
   margin: 0 15px;
+}
+
+.cart-btn {
+  margin: 0;
 }
 
 </style>
