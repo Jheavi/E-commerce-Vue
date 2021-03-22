@@ -64,7 +64,7 @@ export default {
   width: 445px;
   background-color: #f6f6f6;
   margin: 8px;
-  transition: 0.15s 0.3s box-shadow ease-out;
+  transition: 0.3s box-shadow ease-out;
 
   &:hover {
     box-shadow: 0px 0px 15px #adadad;
@@ -74,12 +74,13 @@ export default {
 .title {
   text-transform: uppercase;
   font-size: 24px;
+  margin: 15px 0;
 }
 
 .img-container {
   width: 300px;
   height: 300px;
-  margin: 10px;
+  margin: 35px 10px 25px;
   overflow: hidden;
   box-shadow: 0px 0px 15px #adadad;
 
