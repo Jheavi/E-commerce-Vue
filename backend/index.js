@@ -3,10 +3,10 @@ const chalk = require('chalk');
 const cors = require('cors');
 const morgan = require('morgan');
 const { connect } = require('mongoose');
-const itemSchema = require('./src/models/itemSchema');
-const itemListRouter = require('./src/routes/itemListRouter')(itemSchema);
-const cartSchema = require('./src/models/cartSchema');
-const shoppingCartRouter = require('./src/routes/shoppingCartRouter')(cartSchema);
+require('./src/models/itemModel');
+const itemListRouter = require('./src/routes/itemListRouter');
+require('./src/models/cartModel');
+const shoppingCartRouter = require('./src/routes/shoppingCartRouter');
 require('dotenv').config();
 
 const server = express();

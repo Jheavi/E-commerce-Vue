@@ -1,9 +1,11 @@
-function itemsMongoController(itemSchema) {
+const itemModel = require('../models/itemModel');
+
+function itemsMongoController() {
   async function getMethod(req, res) {
     try {
       const query = {};
 
-      const items = await itemSchema.find(query);
+      const items = await itemModel.find(query);
 
       res.send(items);
     } catch (error) {
@@ -14,7 +16,7 @@ function itemsMongoController(itemSchema) {
   async function postMethod(req, res) {
     try {
       const item = req.body;
-      const newItem = await itemSchema.create(item);
+      const newItem = await itemModel.create(item);
 
       res.send(newItem);
     } catch (error) {
@@ -27,7 +29,7 @@ function itemsMongoController(itemSchema) {
       const item = req.body;
       const query = { 'product-type': item['product-type'] };
 
-      await itemSchema.deleteMany(query);
+      await itemModel.deleteMany(query);
 
       res.send('Deleted');
     } catch (error) {
@@ -40,7 +42,7 @@ function itemsMongoController(itemSchema) {
       const { itemId } = req.params;
       const query = { id: itemId };
 
-      const items = await itemSchema.findOne(query);
+      const items = await itemModel.findOne(query);
 
       res.send(items);
     } catch (error) {

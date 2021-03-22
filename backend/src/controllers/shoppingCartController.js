@@ -1,4 +1,6 @@
-function shoppingCarController(cartItemSchema) {
+const cartItemSchema = require('../models/cartModel');
+
+function shoppingCarController() {
   async function getMethod(req, res) {
     try {
       const query = { };
@@ -14,9 +16,9 @@ function shoppingCarController(cartItemSchema) {
 
   async function patchMethod(req, res) {
     try {
-      const { item } = req.body;
+      const { item, quantity } = req.body;
       const query = { product: item._id };
-      const update = { $inc: { quantity: 1 } };
+      const update = { $inc: { quantity } };
 
       const updatedItem = await cartItemSchema.findOneAndUpdate(
         query,

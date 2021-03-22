@@ -1,9 +1,9 @@
 const express = require('express');
 const shoppingCartController = require('../controllers/shoppingCartController');
 
-function cartRoutes(cartItemSchema) {
+function cartRoutes() {
   const router = express.Router();
-  const shoppingCart = shoppingCartController(cartItemSchema);
+  const shoppingCart = shoppingCartController();
 
   router.route('/')
     .get(shoppingCart.getMethod)
@@ -13,4 +13,4 @@ function cartRoutes(cartItemSchema) {
   return router;
 }
 
-module.exports = cartRoutes;
+module.exports = cartRoutes();

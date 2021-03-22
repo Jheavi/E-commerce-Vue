@@ -1,9 +1,9 @@
 const express = require('express');
 const itemsMongoController = require('../controllers/itemsMongoController');
 
-function itemsRouter(itemSchema) {
+function itemsRouter() {
   const router = express.Router();
-  const itemsMongo = itemsMongoController(itemSchema);
+  const itemsMongo = itemsMongoController();
 
   router.route('/')
     .get(itemsMongo.getMethod)
@@ -16,4 +16,4 @@ function itemsRouter(itemSchema) {
   return router;
 }
 
-module.exports = itemsRouter;
+module.exports = itemsRouter();
