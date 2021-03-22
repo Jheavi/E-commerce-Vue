@@ -48,6 +48,10 @@ li {
   flex: 3;
 }
 
+.flex4 {
+  flex: 4;
+}
+
 .flex10 {
   flex: 10;
 }
