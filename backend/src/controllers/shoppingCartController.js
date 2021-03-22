@@ -33,11 +33,15 @@ function shoppingCarController() {
 
   async function deleteMethod(req, res) {
     try {
-      const item = req.body;
+      const { item } = req.body;
       const query = { product: item._id };
       const update = { $inc: { quantity: -1 } };
 
-      const deletedItem = await cartItemSchema.findOneAndUpdate(query, update, { new: true });
+      const deletedItem = await cartItemSchema.findOneAndUpdate(
+        query,
+        update,
+        { new: true },
+      );
 
       await deletedItem.populate('product').execPopulate();
 
