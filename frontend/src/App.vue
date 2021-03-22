@@ -15,7 +15,7 @@ export default {
 
 <style lang="scss">
 * {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: Roboto, Helvetica, Arial, sans-serif;
   margin: 0;
   padding: 0;
 }
