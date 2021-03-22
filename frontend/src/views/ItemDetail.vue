@@ -30,9 +30,21 @@
             +
           </button>
         </div>
-        <button @click="buyAndResetQuantity">
+        <button
+          :disabled="alert"
+          class="buy-btn"
+          @click="buyAndResetQuantity"
+        >
           Add to cart
         </button>
+        <transition name="slide-fade">
+          <span
+            v-if="alert"
+            class="alert"
+          >
+            You have successfully added {{ quantityToShow }} item{{ `${quantityToShow > 1 ? 's' : ''}` }}!
+          </span>
+        </transition>
       </div>
     </div>
   </div>
@@ -51,6 +63,8 @@ export default {
     const propId = computed(() => props.id)
     const item = computed(() => store.state.item)
     const quantity = ref(1)
+    const quantityToShow = ref(1)
+    const alert = ref(false)
 
     const getItem = (itemId) => store.dispatch('getItem', itemId)
 
@@ -60,8 +74,13 @@ export default {
     )
 
     const buyAndResetQuantity = () => {
+      quantityToShow.value = quantity.value
+      alert.value = true
       increaseItemInCart(item, quantity)
       quantity.value = 1
+      setTimeout(() => {
+        alert.value = false
+      }, 2000)
     }
 
     const increaseQuantity = () => { quantity.value += 1 }
@@ -79,7 +98,9 @@ export default {
       quantity,
       increaseQuantity,
       decreaseQuantity,
-      buyAndResetQuantity
+      buyAndResetQuantity,
+      alert,
+      quantityToShow
     }
   }
 }
@@ -89,6 +110,8 @@ export default {
 .container {
   display: flex;
   justify-content: space-evenly;
+  position: relative;
+  overflow-x: hidden;
 }
 
 .img-container {
@@ -135,14 +158,41 @@ export default {
 .square {
   width: 35px;
   height: 35px;
-  border: 1px solid black;
+  border: 1px solid #000000;
   box-sizing: border-box;
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 0;
   background-color: #ffffff;
-  color: black;
+  color: #000000;
   padding: 0;
+}
+
+.alert {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  padding: 12px;
+  background-color: #fff3e2;
+  color: #000000;
+}
+
+.buy-btn {
+  &:disabled {
+    opacity: 0.7;
+
+    &:hover {
+      background-color: #416bf3;
+    }
+  }
+}
+
+.slide-fade-enter-active, .slide-fade-leave-active {
+  transition: right 0.3s;
+}
+
+.slide-fade-enter-from, .slide-fade-leave-to  {
+  right: -300px;
 }
 </style>
