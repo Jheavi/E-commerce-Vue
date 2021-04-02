@@ -47,7 +47,18 @@ export default {
 
     const getItems = () => store.dispatch('getItems')
 
-    onMounted(() => getItems())
+    const setCheckedProductTypes = (types) => store.commit('setCheckedProductTypes', types)
+    const setCheckedProductManufacturers = (manufacturers) => store.commit('setCheckedProductManufacturers', manufacturers)
+
+    const clearFilter = () => {
+      setCheckedProductTypes([])
+      setCheckedProductManufacturers([])
+    }
+
+    onMounted(() => {
+      getItems()
+      clearFilter()
+    })
 
     return {
       itemList

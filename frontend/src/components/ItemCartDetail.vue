@@ -42,7 +42,10 @@
     <div class="flex2" />
     <div class="erase">
       <span>Eliminar</span>
-      <button class="erase-btn">
+      <button
+        class="erase-btn"
+        @click="deleteItemInCart"
+      >
         <i class="el-icon-close" />
       </button>
     </div>
@@ -65,7 +68,7 @@ export default {
     const defaultPrice = computed(() => `${(props.item.product.price * 1.4).toFixed(2)} €`)
     const price = computed(() => props.item.product.price)
     const quantity = computed(() => props.item.quantity)
-    const totalQuantity = computed(() => quantity.value * price.value)
+    const totalQuantity = computed(() => (quantity.value * price.value).toFixed(2))
 
     const increaseItemInCart = () => store.dispatch(
       'increaseItemInCart',
@@ -75,6 +78,10 @@ export default {
     const decreaseItemInCart = () => store.dispatch(
       'decreaseItemInCart',
       props.item.product
+    )
+    const deleteItemInCart = () => store.dispatch(
+      'increaseItemInCart',
+      { item: props.item.product, quantity: -props.item.quantity }
     )
 
     return {
@@ -86,7 +93,8 @@ export default {
       quantity,
       totalQuantity,
       increaseItemInCart,
-      decreaseItemInCart
+      decreaseItemInCart,
+      deleteItemInCart
     }
   }
 }
@@ -95,12 +103,12 @@ export default {
 <style lang="scss" scoped>
 .container {
   height: 100px;
-  width: 600px;
+  width: 700px;
+  margin: 15px;
   padding: 5px 20px;
   box-shadow: 0px 0px 12px  #d3d3d3;
   display: flex;
   align-items: center;
-  margin: 15px;
 }
 
 .img-container {
@@ -124,6 +132,7 @@ export default {
 .details {
   font-weight: bold;
   margin-bottom: 8px;
+  text-align: left;
 }
 
 .info__default-price {
