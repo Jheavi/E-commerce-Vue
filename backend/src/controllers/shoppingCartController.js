@@ -42,7 +42,6 @@ function shoppingCarController() {
         update,
         { new: true },
       );
-
       await deletedItem.populate('product').execPopulate();
 
       res.send(deletedItem);
