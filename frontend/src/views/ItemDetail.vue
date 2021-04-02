@@ -174,8 +174,9 @@ export default {
   right: 10px;
   bottom: 10px;
   padding: 12px;
-  background-color: #fff3e2;
-  color: #000000;
+  background-color: #3ec400;
+  color: #184b00;
+  border-radius: 2px;
 }
 
 .buy-btn {
