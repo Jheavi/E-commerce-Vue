@@ -87,9 +87,7 @@ export default {
       parseFloat(+productsWithoutTaxes.value + +shippingWithoutTaxes.value)
         .toFixed(2)
     ))
-    const taxes = computed(() => (
-      (totalWithoutTaxes.value * 0.21).toFixed(2)
-    ))
+    const taxes = computed(() => (totalWithoutTaxes.value * 0.21).toFixed(2))
 
     const getCart = () => store.dispatch('getCart')
 
