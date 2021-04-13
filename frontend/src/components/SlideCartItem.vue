@@ -23,8 +23,7 @@
 </template>
 
 <script>
-import { computed, onMounted, ref } from 'vue'
-import { useStore } from 'vuex'
+import { computed, onUnmounted, onMounted, ref } from 'vue'
 import SlideCartDetail from '@/components/SlideCartDetail.vue'
 import { moveElementToPosition } from '../utils/functions'
 
@@ -32,49 +31,64 @@ export default {
   components: {
     SlideCartDetail
   },
-  setup () {
-    const store = useStore()
-    const itemList = computed(() => store.state.itemList)
-    const cartList = computed(() => store.state.cartList)
-    const maxItems = 10
+  props: {
+    itemsForSlide: { type: Array, default: () => [] },
+    shouldAutoMove: { type: Boolean, default: () => true },
+    secondsForAutoMove: { type: Number, default: () => 3 }
+  },
+  setup (props) {
     const position = ref(0)
+    const millisecondsToAutoMoveSlide = 1000 * props.secondsForAutoMove
+    let stopInterval
 
-    const listSliced = computed(() => itemList.value.filter((item) => (
-      !cartList.value.some((cartItem) => (
-        cartItem.product.id === item.id && cartItem.quantity > 0
-      ))
-    )).slice(0, maxItems))
+    const listSliced = computed(() => props.itemsForSlide)
+
+    const autoMovement = () => {
+      const slide = document.querySelector('.slide')
+      if (position.value > -listSliced.value.length + 3) {
+        position.value -= 1
+      } else if (position.value === -listSliced.value.length + 3) {
+        position.value = 0
+      }
+      moveElementToPosition(slide, position.value)
+    }
 
     const itemsToLeft = () => {
       const slide = document.querySelector('.slide')
+
       if (position.value > -listSliced.value.length + 3) position.value -= 1
+
       moveElementToPosition(slide, position.value)
+
+      if (props.shouldAutoMove) {
+        clearInterval(stopInterval)
+        stopInterval = setInterval(autoMovement, millisecondsToAutoMoveSlide)
+      }
     }
 
     const itemsToRight = () => {
       const slide = document.querySelector('.slide')
+
       if (position.value < 0) position.value += 1
+
       moveElementToPosition(slide, position.value)
+
+      if (props.shouldAutoMove) {
+        clearInterval(stopInterval)
+        stopInterval = setInterval(autoMovement, millisecondsToAutoMoveSlide)
+      }
     }
 
-    const getItems = () => store.dispatch('getItems')
-
     onMounted(() => {
-      const slide = document.querySelector('.slide')
-      const millisecondsToAutoMoveSlide = 3000
-
-      if (!store.state.itemList.length) {
-        getItems()
+      if (props.shouldAutoMove) {
+        stopInterval = setInterval(autoMovement, millisecondsToAutoMoveSlide)
       }
+    })
 
-      setInterval(() => {
-        if (position.value > -listSliced.value.length + 3) {
-          position.value -= 1
-        } else if (position.value === -listSliced.value.length + 3) {
-          position.value = 0
-        }
-        moveElementToPosition(slide, position.value)
-      }, millisecondsToAutoMoveSlide)
+    onUnmounted(() => {
+      if (props.shouldAutoMove) {
+        clearInterval(stopInterval)
+      }
     })
 
     return {
@@ -113,6 +127,7 @@ button {
   align-items: center;
   overflow-x: hidden;
   position: relative;
+  width: 700px;
 }
 
 .slide {
