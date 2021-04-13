@@ -14,7 +14,7 @@
       </ul>
       <span>More products of your interest...</span>
       <div class="more-products">
-        <SlideCartItem />
+        <SlideCartItem :items-for-slide="itemsForSlide" />
       </div>
     </div>
     <div class="total-cart-calculation">
@@ -70,40 +70,58 @@ export default {
   },
   setup () {
     const store = useStore()
+    const itemsToShow = 10
+    const itemList = computed(() => store.state.itemList)
+
     const cartList = computed(() => store.state.cartList.filter((item) => (
       item.quantity > 0
     )))
+
+    const itemsForSlide = computed(() => itemList.value.filter((item) => (
+      !cartList.value.some((cartItem) => (cartItem.product.id === item.id
+      ))
+    )).slice(0, itemsToShow))
+
     const shipping = ref(parseFloat(5).toFixed(2))
     const totalWithTaxes = computed(() => cartList.value.reduce(
       (acc, currentItem) => acc + currentItem.quantity * currentItem.product.price,
       0
     ).toFixed(2))
+
     const totalPrice = computed(() => (
       parseFloat(+totalWithTaxes.value + +shipping.value).toFixed(2)
     ))
+
     const productsWithoutTaxes = computed(() => (totalWithTaxes.value / 1.21).toFixed(2))
     const shippingWithoutTaxes = computed(() => (shipping.value / 1.21).toFixed(2))
+
     const totalWithoutTaxes = computed(() => (
       parseFloat(+productsWithoutTaxes.value + +shippingWithoutTaxes.value)
         .toFixed(2)
     ))
+
     const taxes = computed(() => (totalWithoutTaxes.value * 0.21).toFixed(2))
 
     const getCart = () => store.dispatch('getCart')
+    const getItems = () => store.dispatch('getItems')
 
     onMounted(() => {
       if (!cartList.value.length) {
         getCart()
       }
+      if (!itemList.value.length) {
+        getItems()
+      }
     })
 
     return {
       cartList,
-      totalWithTaxes,
-      totalPrice,
+      itemsForSlide,
       shipping,
+      taxes,
+      totalPrice,
       totalWithoutTaxes,
-      taxes
+      totalWithTaxes
     }
   }
 }
