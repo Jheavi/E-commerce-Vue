@@ -110,7 +110,6 @@ export default {
 .container {
   display: flex;
   justify-content: space-evenly;
-  position: relative;
   overflow-x: hidden;
 }
 
@@ -171,8 +170,8 @@ export default {
 
 .alert {
   position: absolute;
-  right: 10px;
-  bottom: 10px;
+  right: 30px;
+  bottom: 30px;
   padding: 12px;
   background-color: #3ec400;
   color: #184b00;

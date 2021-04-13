@@ -20,6 +20,10 @@ export default {
   padding: 0;
 }
 
+body {
+  overflow-x: hidden;
+}
+
 a {
   color: inherit;
   text-decoration: none;
