@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h5>{{ item['product-name'] }}</h5>
+    <h3>{{ item['product-name'] }}</h3>
     <img
       :srcset="item['product-image']"
       :alt="item['product-name']"
